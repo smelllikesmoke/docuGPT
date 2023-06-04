@@ -1,6 +1,10 @@
 from deta import Deta
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
-DETA_KEY = "d0n7zfhjqd9_4dq6oynzAFmbLhrGwn8hij26CH3jRbSf"
+DETA_KEY = os.environ["DETA_PROJECT_KEY"]
+
 db = Deta(DETA_KEY) 
 db = db.Base("feedback")
 

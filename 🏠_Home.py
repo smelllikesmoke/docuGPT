@@ -2,13 +2,21 @@ import streamlit as st
 import requests
 import time     
 
-def app():
+
+def app():  
+    if "linkkk" not in st.session_state:
+        st.session_state["linkkk"] = ""
     st.set_page_config(page_title="docuGPT", page_icon=":robot_face:", layout="centered")
     st.title('Welcome to docuGPT! 🥳')
 
     st.text_input(label="Please enter the link for :red[readthedocs] below: ", key="link", placeholder="https://readthedocs.org/...")
     if st.button("Submit :heart:"):
         if check_link(st.session_state.link):
+            # if "link" not in st.session_state:
+            #     st.session_state.link = "{}".format(st.session_state.link)
+            if "history" not in st.session_state:
+                st.session_state.history = []
+            st.session_state.linkkk = st.session_state.link
             st.balloons()
             st.success("✅ Link is submitted. ✅")
             st.markdown("## Please head over to Interact to interact with your Docs. :muscle:")
