@@ -5,6 +5,7 @@ from langchain.vectorstores import FAISS
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.chains.question_answering import load_qa_chain
+from langchain.vectorstores import Chroma
 from langchain import OpenAI
 import os
 
@@ -29,9 +30,14 @@ def main():
     data = loaders.load()
     text_splitter = CharacterTextSplitter(separator='\n', chunk_size=1000, chunk_overlap=200)
     docs = text_splitter.split_documents(data)
-    print(len(docs))
+    print(f'Number of documents: {len(docs)}')
+
+    docs = docs[:4]
     embeddings = OpenAIEmbeddings()
-    print(embeddings)
+    vectorstore = Chroma.from_documents(
+        docs, embeddings
+    )
+
     # vectorSpace_openAI = FAISS.from_documents(docs, embeddings)
 
     # with open('vectorSpace_openAI.pkl', 'wb') as f:
@@ -40,8 +46,8 @@ def main():
     # with open('vectorSpace_openAI.pkl', 'rb') as f:
     #     vectorSpace_openAI = pickle.load(f)
 
-    llm = OpenAI(temperature=0)
-    llm
+    # llm = OpenAI(temperature=0)
+    
 
     
 
